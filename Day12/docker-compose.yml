@@ -1,0 +1,27 @@
+version : "3.3"
+services :
+    mqttbroker :
+        image : eclipse-mosquitto
+        hostname : mosquitto
+        container_name : testmqttbroker
+        networks :
+            - default
+        expose :
+            - "1883"
+        volumes :
+            - /home/jeet/Desktop/Cloud_and_Edge_Computing/Day12/mosquitto.conf:/mosquitto/config/mosquitto.conf
+        ports :
+            - 5010:1883
+    publisher :
+        build : ./publisher
+        container_name : publisher
+        hostname : mospub
+        depends_on :
+            - mqttbroker
+            - subscriber
+    subscriber :
+        build : ./subscriber
+        container_name : subscriber
+        hostname : mossub
+        depends_on :
+            - mqttbroker
