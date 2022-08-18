@@ -1,0 +1,12 @@
+version : '3.3'
+services :
+    publisher : 
+        build : ./publisher
+        container_name : publisher
+        hostname : mqttPub
+        depends_on:
+            - subscriber
+    subscriber : 
+        build : ./subscriber
+        container_name : subscriber
+        hostname : mqttSub
